@@ -1,0 +1,55 @@
+﻿﻿
+@page "/todolist"
+
+<div class="background-grad p-5 m-5">
+    <div class="alert alert-primary" role="alert">
+        <h3 class="text-center">Todo List</h3>
+    </div>
+
+    <div class="d-grid gap-2">
+        <input class="form-control form-control-lg" type="text" @bind="newTodoItem" />
+        <button class="btn btn-primary" @onclick="addTodoItem">Add</button>
+    </div>
+
+    <hr />
+
+    <ol class="list-group">
+        @foreach (string todoItem in todoList)
+        {
+            <li class="list-group-item">
+                @todoItem
+                <button class="btn btn-danger btn-sm float-end" @onclick="(() => deleteTodoItem(todoItem))">
+                    <span class="oi oi-delete" />
+                </button>
+            </li>
+        }
+    </ol>
+</div>
+
+<style type="text/css">
+
+.background-grad {
+    background-color: #0093E9;
+    background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+}
+    
+</style>
+
+@code {
+    List<string> todoList = new() { "Mow the lawn", "Go shopping" };
+    string newTodoItem = "";
+
+    void addTodoItem()
+    {
+        if (string.IsNullOrWhiteSpace(newTodoItem) == false)
+        {
+            todoList.Add(newTodoItem);
+            newTodoItem = "";
+        }
+    }
+
+    void deleteTodoItem(string todoItemToDelete)
+    {
+        todoList.Remove(todoItemToDelete);
+    }
+}
