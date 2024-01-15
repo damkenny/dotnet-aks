@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blazorapp
+spec:
+  selector:
+    matchLabels:
+      app: blazorapp
+  template:
+    metadata:
+      labels:
+        app: blazorapp
+    spec:
+      containers:
+      - name: blazorapp
+        image: blazortodoapp   
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
